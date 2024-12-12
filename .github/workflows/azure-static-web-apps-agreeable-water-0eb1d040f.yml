@@ -65,4 +65,3 @@ jobs:
           app-name: 'vivekwebtest'
           slot-name: 'Production'
           package: .
-          app_build_command: 'npm run build' # Add this line

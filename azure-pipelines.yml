@@ -1,3 +1,9 @@
+trigger:
+- main
+
+pool:
+name: 'Default'  # Changed to
+
 variables:
   buildConfiguration: 'Release'
 
@@ -6,9 +12,14 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-- task: AzureWebApp@1
+    arguments: '--configuration $(buildConfiguration)'
+    zipAfterPublish: true
+- task: AzureRmWebAppDeployment@4
   inputs:
+    ConnectionType: 'AzureRM'
     azureSubscription: 'devopsazure'
-    appType: 'webAppLinux'
-    appName: 'vivektestapp'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    appType: 'webApp'
+    WebAppName: 'vivektestapp'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    enableCustomDeployment: true
+    DeploymentType: 'webDeploy'

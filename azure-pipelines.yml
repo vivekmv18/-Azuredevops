@@ -18,11 +18,14 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: CopyFiles@2
+- task: ArchiveFiles@2
   inputs:
-    contents: '**/*.zip'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
-  displayName: 'Copy Files to Artifact Staging Directory'
+    rootFolderOrFile: '$(Build.SourcesDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/output.zip'
+    replaceExistingArchive: true
+  displayName: 'Archive files'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -34,5 +37,5 @@ steps:
   inputs:
     azureSubscription: 'devopsazure'
     appName: 'vivekwebtest'
-    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    package: '$(Build.ArtifactStagingDirectory)/output.zip'
   displayName: 'Deploy to Azure Web App'

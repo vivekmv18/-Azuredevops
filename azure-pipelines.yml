@@ -20,7 +20,7 @@ steps:
 
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'adevopsazure'
+    azureSubscription: 'devopsazure'
     appName: 'vivekwebtest'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
   displayName: 'Deploy to Azure Web App'
